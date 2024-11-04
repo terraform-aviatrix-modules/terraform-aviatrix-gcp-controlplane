@@ -34,7 +34,7 @@ resource "google_compute_instance" "controller" {
 
   boot_disk {
     initialize_params {
-      image = var.image == "" ? jsondecode(data.http.image_info.response_body)["BYOL"] : var.image
+      image = var.image == "" ? jsondecode(data.http.image_info.response_body)["g3"]["amd64"]["gcp"] : var.image
     }
   }
 

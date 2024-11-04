@@ -38,6 +38,11 @@ variable "use_existing_network" {
   default = false
 }
 
+variable "copilot_name" {
+  type        = string
+  description = "Customized Name for Aviatrix Copilot"
+}
+
 variable "module_config" {
   default = {
     controller_deployment     = true,

@@ -19,16 +19,6 @@ variable "controller_name" {
   default     = "Aviatrix-Controller"
 }
 
-variable "access_account_name" {
-  type        = string
-  description = "aviatrix controller access account name"
-}
-
-variable "account_email" {
-  type        = string
-  description = "aviatrix controller access account email"
-}
-
 variable "incoming_ssl_cidrs" {
   type        = list(string)
   description = "Incoming cidr for security group used by controller"
@@ -49,6 +39,5 @@ variable "module_config" {
     controller_initialization = true,
     copilot_deployment        = true,
     copilot_initialization    = true,
-    account_onboarding        = true,
   }
 }

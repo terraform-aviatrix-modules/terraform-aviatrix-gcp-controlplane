@@ -2,10 +2,9 @@ module "controller_build" {
   count  = var.module_config.controller_deployment ? 1 : 0
   source = "./modules/controller_build"
 
-
   // please do not use special characters such as `\/"[]:|<>+=;,?*@&~!#$%^()_{}'` in the controller_name
   controller_name      = var.controller_name
-  incoming_ssl_cidrs   = var.incoming_ssl_cidrs
+  incoming_ssl_cidrs   = local.controller_allowed_cidrs
   use_existing_network = var.use_existing_network
   access_account_name  = "GCP"
 }
@@ -34,14 +33,12 @@ module "copilot_build" {
 
   source = "./modules/copilot_build"
 
-  use_existing_network = true
-  network              = module.controller_build[0].network.self_link
-  subnetwork           = module.controller_build[0].subnetwork.self_link
-
-  controller_public_ip  = module.controller_build[0].controller_public_ip_address
-  controller_private_ip = module.controller_build[0].controller_private_ip_address
-  copilot_name          = var.copilot_name
-
+  use_existing_network   = true
+  network                = module.controller_build[0].network.self_link
+  subnetwork             = module.controller_build[0].subnetwork.self_link
+  controller_public_ip   = module.controller_build[0].controller_public_ip_address
+  controller_private_ip  = module.controller_build[0].controller_private_ip_address
+  copilot_name           = var.copilot_name
   default_data_disk_size = "100"
 
   allowed_cidrs = {

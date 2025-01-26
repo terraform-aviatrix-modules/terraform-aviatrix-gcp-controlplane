@@ -56,10 +56,9 @@ resource "google_compute_instance" "copilot" {
   }
 
   metadata = {
-    ssh-keys = local.ssh_key
+    ssh-keys  = local.ssh_key
+    user-data = local.metadata_startup_script
   }
-
-  metadata_startup_script = local.metadata_startup_script
 
   lifecycle {
     ignore_changes = [attached_disk]

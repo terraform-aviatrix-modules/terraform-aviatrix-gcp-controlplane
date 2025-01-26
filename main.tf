@@ -4,9 +4,13 @@ module "controller_build" {
 
   // please do not use special characters such as `\/"[]:|<>+=;,?*@&~!#$%^()_{}'` in the controller_name
   controller_name      = var.controller_name
+  controller_version   = var.controller_version
+  image                = var.controller_image
   incoming_ssl_cidrs   = local.controller_allowed_cidrs
   use_existing_network = var.use_existing_network
   access_account_name  = "GCP"
+  environment          = var.environment         #For internal use only
+  registry_auth_token  = var.registry_auth_token #For internal use only
 }
 
 
@@ -21,6 +25,7 @@ module "controller_init" {
   controller_admin_email    = var.controller_admin_email
   controller_admin_password = var.controller_admin_password
   customer_id               = var.customer_id
+  wait_for_setup_duration   = "0s"
 
   depends_on = [
     module.controller_build

@@ -51,6 +51,14 @@ resource "google_compute_instance" "controller" {
       nat_ip = google_compute_address.ip_address.address
     }
   }
+
+  metadata = {
+    user-data = templatefile("${path.module}/cloud-init.tftpl", {
+      controller_version  = var.controller_version
+      environment         = var.environment
+      registry_auth_token = var.registry_auth_token
+    })
+  }
 }
 
 resource "google_compute_firewall" "controller_firewall" {
@@ -66,7 +74,7 @@ resource "google_compute_firewall" "controller_firewall" {
 }
 
 data "http" "image_info" {
-  url = "https://cdn.prod.sre.aviatrix.com/image-details/gcp_controller_image_details.json"
+  url = "https://cdn.${var.environment}.sre.aviatrix.com/image-details/gcp_controller_image_details.json"
 
   request_headers = {
     "Accept" = "application/json"

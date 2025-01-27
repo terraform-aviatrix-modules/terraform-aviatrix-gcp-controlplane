@@ -25,7 +25,7 @@ variable "controller_version" {
   default     = "latest"
 }
 
-# terraform-doc-ignore
+# terraform-docs-ignore
 variable "controller_image" {
   type        = string
   description = "Aviatrix Controller Image"

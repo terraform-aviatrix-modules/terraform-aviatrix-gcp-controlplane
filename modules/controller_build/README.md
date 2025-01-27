@@ -20,6 +20,7 @@ module "controller_build" {
 | <a name="input_access_account_name"></a> [access\_account\_name](#input\_access\_account\_name) | Name of the access account to create on the Aviatrix Controller | `string` | n/a | yes |
 | <a name="input_controller_machine_type"></a> [controller\_machine\_type](#input\_controller\_machine\_type) | The machine type to create the Aviatrix Controller | `string` | `"e2-standard-2"` | no |
 | <a name="input_controller_name"></a> [controller\_name](#input\_controller\_name) | The Aviatrix Controller name | `string` | `"aviatrix-controller"` | no |
+| <a name="input_controller_version"></a> [controller\_version](#input\_controller\_version) | Aviatrix Controller version | `string` | `"latest"` | no |
 | <a name="input_firewall_name"></a> [firewall\_name](#input\_firewall\_name) | Name of the firewall to be created | `string` | `"aviatrix-controller-firewall"` | no |
 | <a name="input_image"></a> [image](#input\_image) | The image from which to initialize this disk | `string` | `""` | no |
 | <a name="input_incoming_ssl_cidrs"></a> [incoming\_ssl\_cidrs](#input\_incoming\_ssl\_cidrs) | The CIDRs to be allowed for HTTPS(port 443) access to the Aviatrix Controller | `list(string)` | n/a | yes |

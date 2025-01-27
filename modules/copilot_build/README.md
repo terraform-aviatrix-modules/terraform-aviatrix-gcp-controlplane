@@ -1,138 +1,71 @@
-# Aviatrix Copilot Build GCP
+<!-- BEGIN_TF_DOCS -->
+# terraform-aviatrix-gcp-controlplane - copilot-build
 
-This module builds an Aviatrix Copilot in GCP.
+### Description
+This submodule creates the Copilot virtual machine and related components.
 
-### Usage:
+### Usage Example
+```hcl
+module "copilot_build" {
+  source = "./modules/copilot_build"
 
-To create an Aviatrix Copilot:
+  subnet_cidr            = "10.0.0.0/24"
+  controller_public_ip   = "123.2.3.4"
+  controller_private_ip  = "10.2.3.4"
+  copilot_name           = "my_copilot"
+  default_data_disk_size = "100"
 
-```
-provider "google" {
-}
-
-module "copilot_build_gcp" {
-  source       = "github.com/AviatrixSystems/terraform-modules-copilot.git//copilot_build_gcp"
-  copilot_name = "copilot"
   allowed_cidrs = {
-    "tcp" = {
-      protocol = "tcp"
-      port     = "443"
-      cidrs    = ["<< CIDR_1 allowed for HTTPS access >>", "<< CIDR_2 allowed for HTTPS access >>", ...]
+    "tcp_cidrs" = {
+      priority = "100"
+      protocol = "Tcp"
+      ports    = ["443"]
+      cidrs    = ["1.2.3.4/32"]
     }
-    "udp1" = {
-      protocol = "udp"
-      port     = "5000"
-      cidrs    = ["0.0.0.0/0"]
-    }
-    "udp2" = {
-      protocol = "udp"
-      port     = "31283"
-      cidrs    = ["0.0.0.0/0"]
+    "udp_cidrs" = {
+      priority = "200"
+      protocol = "Udp"
+      ports    = ["5000", "31283"]
+      cidrs    = ["123.2.3.4"]
     }
   }
 }
-
-output "copilot_public_ip" {
-  value = module.copilot_build_gcp.public_ip
-}
-
-output "copilot_private_ip" {
-  value = module.copilot_build_gcp.private_ip
-}
 ```
+## Inputs
 
-### Variables
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_additional_disks"></a> [additional\_disks](#input\_additional\_disks) | A set of additional disks' `name` or `self_link` that will be attached to the copilot instance | `set(string)` | `[]` | no |
+| <a name="input_allowed_cidrs"></a> [allowed\_cidrs](#input\_allowed\_cidrs) | n/a | <pre>map(object({<br/>    protocol = string,<br/>    port     = number<br/>    cidrs    = set(string),<br/>  }))</pre> | n/a | yes |
+| <a name="input_boot_disk_size"></a> [boot\_disk\_size](#input\_boot\_disk\_size) | Boot disk size for copilot | `number` | `30` | no |
+| <a name="input_controller_private_ip"></a> [controller\_private\_ip](#input\_controller\_private\_ip) | Controller private IP | `string` | n/a | yes |
+| <a name="input_controller_public_ip"></a> [controller\_public\_ip](#input\_controller\_public\_ip) | Controller public IP | `string` | `"0.0.0.0"` | no |
+| <a name="input_copilot_machine_type"></a> [copilot\_machine\_type](#input\_copilot\_machine\_type) | The machine type to create the Aviatrix Copilot | `string` | `"e2-standard-2"` | no |
+| <a name="input_copilot_name"></a> [copilot\_name](#input\_copilot\_name) | The Aviatrix Copilot name | `string` | `"aviatrix-copilot"` | no |
+| <a name="input_default_data_disk_name"></a> [default\_data\_disk\_name](#input\_default\_data\_disk\_name) | Name of default data disk. If default data disk is not created, this variable will be ignored. | `string` | `"default-data-disk"` | no |
+| <a name="input_default_data_disk_size"></a> [default\_data\_disk\_size](#input\_default\_data\_disk\_size) | Size of default data disk. If not set, no default data disk will be created. | `number` | `0` | no |
+| <a name="input_image"></a> [image](#input\_image) | Image name | `string` | `""` | no |
+| <a name="input_ip_address_name"></a> [ip\_address\_name](#input\_ip\_address\_name) | IP address name | `string` | `"aviatrix-copilot-address"` | no |
+| <a name="input_is_cluster"></a> [is\_cluster](#input\_is\_cluster) | Flag to indicate whether the copilot is for a cluster | `bool` | `false` | no |
+| <a name="input_network"></a> [network](#input\_network) | The network to attach to the Aviatrix Copilot | `string` | `""` | no |
+| <a name="input_network_tags"></a> [network\_tags](#input\_network\_tags) | Compute instance network tags | `set(string)` | <pre>[<br/>  "copilot"<br/>]</pre> | no |
+| <a name="input_private_mode"></a> [private\_mode](#input\_private\_mode) | Flag to indicate whether the copilot is for private mode | `bool` | `false` | no |
+| <a name="input_service_account_email"></a> [service\_account\_email](#input\_service\_account\_email) | The Service Account to assign to the Aviatrix Copilot | `string` | `""` | no |
+| <a name="input_service_account_scopes"></a> [service\_account\_scopes](#input\_service\_account\_scopes) | The scopes to assign to the Aviatrix Copilot's Service Account | `set(string)` | <pre>[<br/>  "cloud-platform"<br/>]</pre> | no |
+| <a name="input_ssh_public_key_file_content"></a> [ssh\_public\_key\_file\_content](#input\_ssh\_public\_key\_file\_content) | File content of the SSH public key | `string` | `""` | no |
+| <a name="input_ssh_public_key_file_path"></a> [ssh\_public\_key\_file\_path](#input\_ssh\_public\_key\_file\_path) | File path to the SSH public key | `string` | `""` | no |
+| <a name="input_ssh_user"></a> [ssh\_user](#input\_ssh\_user) | SSH user name | `string` | `""` | no |
+| <a name="input_subnet_cidr"></a> [subnet\_cidr](#input\_subnet\_cidr) | The cidr for the subnetwork this module will create or an existing subnet | `string` | `"10.128.0.0/9"` | no |
+| <a name="input_subnetwork"></a> [subnetwork](#input\_subnetwork) | The subnetwork to attach the Aviatrix Copilot | `string` | `""` | no |
+| <a name="input_use_existing_network"></a> [use\_existing\_network](#input\_use\_existing\_network) | Flag to indicate whether to use an existing network | `bool` | `false` | no |
+| <a name="input_use_existing_ssh_key"></a> [use\_existing\_ssh\_key](#input\_use\_existing\_ssh\_key) | Flag to indicate whether to use an existing ssh key | `bool` | `false` | no |
 
-> **NOTE:** If **use_existing_network** is set to true, **network** and **subnetwork** are required. Make sure that resources `google_compute_network` and `google_compute_subnetwork` are configured properly.
+## Outputs
 
-- **use_existing_network**
-
-  Flag to indicate whether to use an existing network. Default: false.
-
-- **network**
-
-  The name or self_link of an existing Google Compute Network. If not set, a Google Compute Network and Subnetwork with cidr "10.128.0.0/9" will be created.
-
-- **subnetwork**
-
-  The name or self_link of an existing Google Compute Subnetwork of the given **network**. **subnetwork** must be empty if **network** is not provided.
-
-- **subnet_cidr**
-
-  The CIDR for the Google Subnetwork that will be created. Must be empty if **network** is set. Default value is "10.128.0.0/9".
-
-- **copilot_name**
-
-  Name of copilot that will be launched. If not set, default name will be used.
-
-- **service_account_email**
-
-  Email of a service account to attach to the Aviatrix Copilot instance. If not set, no service account will be attached.
-
-- **service_account_scopes**
-
-  List of scopes to assign to the service account. If not set, defaults to ["cloud-platform"].
-
-- **copilot_machine_type**
-
-  The machine type to create the Aviatrix Copilot. If not set, defaults to "e2-standard-2".
-
-- **boot_disk_size**
-
-  Boot disk size for copilot. The minimum boot disk size is 30G. Default: 30.
-
-- **allowed_cidrs**
-
-  Map of allowed incoming CIDRs. Please set protocol(string), port(string) and cidrs(set of strings) in each map element. Please see the example code above for example.
-
-> **NOTE:** If **ssh_user** is not set, no SSH key will be added to Copilot. If **use_existing_ssh_key** is set to false, an SSH key will be generated and added to Copilot. If **use_existing_ssh_key** is set to true, either **ssh_public_key_file_path** or **ssh_public_key_file_content** must be configured.
-
-- **ssh_user**
-
-  SSH user name. If not set, defaults to "".
-
-- **use_existing_ssh_key**
-
-  Flag to indicate whether to use an existing ssh key. Default: false.
-
-- **ssh_public_key_file_path**
-
-  File path to the SSH public key. If not set, defaults to "".
-
-- **ssh_public_key_file_content**
-
-  File content of the SSH public key. If not set, defaults to "".
-
-- **default_data_disk_size**
-
-  Size of default data disk. If not set, no default data disk will be created. Default: 0.
-
-- **default_data_disk_name**
-
-  Name of default data disk. If default data disk is not created, this variable will be ignored. Default: "default-data-disk".
-
-- **additional_disks**
-
-  A set of additional disks' `name` or `self_link` that will be attached to the copilot instance. Please refer to this [link](https://cloud.google.com/compute/docs/disks/add-persistent-disk) for instructions on how to create a disk. If not set, defaults to [].
-
-- **network_tags**
-
-  A set of compute instance network tags. Default: ["copilot"].
-
-### Outputs
-
-- **private_ip**
-
-  The private IP address of the Google Compute instance created for the copilot.
-
-- **public_ip**
-
-  The public IP address of the Google Compute instance created for the copilot.
-
-- **instance_id**
-
-  Instance ID.
-
-- **network**
-
-  Network self link.
+| Name | Description |
+|------|-------------|
+| <a name="output_instance_id"></a> [instance\_id](#output\_instance\_id) | n/a |
+| <a name="output_network"></a> [network](#output\_network) | n/a |
+| <a name="output_private_ip"></a> [private\_ip](#output\_private\_ip) | n/a |
+| <a name="output_public_ip"></a> [public\_ip](#output\_public\_ip) | n/a |
+<!-- END_TF_DOCS -->

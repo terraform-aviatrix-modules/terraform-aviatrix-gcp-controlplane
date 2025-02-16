@@ -48,6 +48,7 @@ module "copilot_build" {
   zone                   = var.zone
   default_data_disk_size = var.copilot_data_disk_size
 
+
   allowed_cidrs = {
     "tcp-443" = {
       protocol = "Tcp"

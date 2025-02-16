@@ -15,17 +15,20 @@ resource "google_compute_subnetwork" "controller_subnet" {
 resource "google_compute_address" "ip_address" {
   name         = var.ip_address_name
   address_type = "EXTERNAL"
+  region = var.region
 }
 
 
 data "google_compute_network" "controller_network" {
   count = var.use_existing_network ? 1 : 0
   name  = var.network_name
+
 }
 
 data "google_compute_subnetwork" "controller_subnet" {
   count = var.use_existing_network ? 1 : 0
   name  = var.subnet_name
+  region = var.region 
 }
 
 resource "google_compute_instance" "controller" {

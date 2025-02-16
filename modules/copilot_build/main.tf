@@ -15,6 +15,7 @@ resource "google_compute_subnetwork" "copilot_subnet" {
 resource "google_compute_address" "ip_address" {
   name         = var.ip_address_name
   address_type = "EXTERNAL"
+  region = var.region
 }
 
 resource "tls_private_key" "key_pair_material" {

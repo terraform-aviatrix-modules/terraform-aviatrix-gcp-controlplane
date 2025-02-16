@@ -9,6 +9,7 @@ resource "google_compute_subnetwork" "copilot_subnet" {
   name          = "aviatrix-copilot-subnetwork"
   network       = google_compute_network.copilot_network[0].self_link
   ip_cidr_range = var.subnet_cidr
+  region = var.region
 }
 
 resource "google_compute_address" "ip_address" {
@@ -33,6 +34,7 @@ data "http" "image_info" {
 resource "google_compute_instance" "copilot" {
   name         = var.copilot_name
   machine_type = var.copilot_machine_type
+  zone         = var.zone
   tags         = var.network_tags
 
   boot_disk {

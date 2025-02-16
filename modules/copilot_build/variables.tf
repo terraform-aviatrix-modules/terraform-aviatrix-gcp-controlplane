@@ -159,3 +159,9 @@ variable "image" {
   description = "Image name"
   default     = ""
 }
+variable "region" {
+  type = string
+}
+variable "zone" {
+  type = string 
+}

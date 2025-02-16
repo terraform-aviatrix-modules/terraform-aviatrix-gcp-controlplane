@@ -9,6 +9,7 @@ resource "google_compute_subnetwork" "controller_subnet" {
   name          = var.subnet_name
   network       = google_compute_network.controller_network[0].self_link
   ip_cidr_range = var.subnet_cidr
+  region = var.region
 }
 
 resource "google_compute_address" "ip_address" {
@@ -30,6 +31,7 @@ data "google_compute_subnetwork" "controller_subnet" {
 resource "google_compute_instance" "controller" {
   name         = var.controller_name
   machine_type = var.controller_machine_type
+  zone         = var.zone
   tags         = var.network_tags
 
   boot_disk {

@@ -7,6 +7,11 @@ module "controller_build" {
   incoming_ssl_cidrs   = local.controller_allowed_cidrs
   use_existing_network = var.use_existing_network
   access_account_name  = "GCP"
+  network_name         = var.network_name
+  subnet_name          = var.subnet_name
+  region = var.region 
+  zone                 = var.zone
+  service_account_email = var.service_account_email
 }
 
 
@@ -34,12 +39,14 @@ module "copilot_build" {
   source = "./modules/copilot_build"
 
   use_existing_network   = true
-  network                = module.controller_build[0].network.self_link
-  subnetwork             = module.controller_build[0].subnetwork.self_link
+  network                = module.controller_build[0].network
+  subnetwork             = module.controller_build[0].subnetwork
   controller_public_ip   = module.controller_build[0].controller_public_ip_address
   controller_private_ip  = module.controller_build[0].controller_private_ip_address
   copilot_name           = var.copilot_name
-  default_data_disk_size = "100"
+  region = var.region 
+  zone                   = var.zone
+  default_data_disk_size = var.copilot_data_disk_size
 
   allowed_cidrs = {
     "tcp-443" = {

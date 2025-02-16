@@ -79,3 +79,10 @@ variable "network_tags" {
   description = "Compute instance network tags"
   default     = ["controller"]
 }
+
+variable "region" {
+  type = string 
+}
+variable "zone" {
+  type = string 
+}

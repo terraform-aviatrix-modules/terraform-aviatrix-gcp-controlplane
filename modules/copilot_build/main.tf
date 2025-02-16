@@ -90,6 +90,7 @@ resource "google_compute_disk" "default" {
   count = var.default_data_disk_size == 0 ? 0 : 1
   name  = var.default_data_disk_name
   size  = var.default_data_disk_size
+  zone = var.zone
 }
 
 resource "google_compute_attached_disk" "default" {

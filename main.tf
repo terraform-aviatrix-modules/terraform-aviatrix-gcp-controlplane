@@ -3,14 +3,14 @@ module "controller_build" {
   source = "./modules/controller_build"
 
   // please do not use special characters such as `\/"[]:|<>+=;,?*@&~!#$%^()_{}'` in the controller_name
-  controller_name      = var.controller_name
-  incoming_ssl_cidrs   = local.controller_allowed_cidrs
-  use_existing_network = var.use_existing_network
-  access_account_name  = "GCP"
-  network_name         = var.network_name
-  subnet_name          = var.subnet_name
-  region = var.region 
-  zone                 = var.zone
+  controller_name       = var.controller_name
+  incoming_ssl_cidrs    = local.controller_allowed_cidrs
+  use_existing_network  = var.use_existing_network
+  access_account_name   = "GCP"
+  network_name          = var.network_name
+  subnet_name           = var.subnet_name
+  region                = var.region
+  zone                  = var.zone
   service_account_email = var.service_account_email
 }
 
@@ -44,7 +44,7 @@ module "copilot_build" {
   controller_public_ip   = module.controller_build[0].controller_public_ip_address
   controller_private_ip  = module.controller_build[0].controller_private_ip_address
   copilot_name           = var.copilot_name
-  region = var.region 
+  region                 = var.region
   zone                   = var.zone
   default_data_disk_size = var.copilot_data_disk_size
 

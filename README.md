@@ -40,11 +40,17 @@ output "controlplane_data" {
 | <a name="input_controller_admin_email"></a> [controller\_admin\_email](#input\_controller\_admin\_email) | aviatrix controller admin email address | `string` | n/a | yes |
 | <a name="input_controller_admin_password"></a> [controller\_admin\_password](#input\_controller\_admin\_password) | aviatrix controller admin password | `string` | n/a | yes |
 | <a name="input_controller_name"></a> [controller\_name](#input\_controller\_name) | Customized Name for Aviatrix Controller | `string` | `"Aviatrix-Controller"` | no |
+| <a name="input_copilot_data_disk_size"></a> [copilot\_data\_disk\_size](#input\_copilot\_data\_disk\_size) | The size of the CoPilot data disk | `string` | n/a | yes |
 | <a name="input_copilot_name"></a> [copilot\_name](#input\_copilot\_name) | Customized Name for Aviatrix Copilot | `string` | n/a | yes |
 | <a name="input_customer_id"></a> [customer\_id](#input\_customer\_id) | aviatrix customer license id | `string` | n/a | yes |
 | <a name="input_incoming_ssl_cidrs"></a> [incoming\_ssl\_cidrs](#input\_incoming\_ssl\_cidrs) | Incoming cidr for security group used by controller | `list(string)` | n/a | yes |
 | <a name="input_module_config"></a> [module\_config](#input\_module\_config) | n/a | `map` | <pre>{<br/>  "controller_deployment": true,<br/>  "controller_initialization": true,<br/>  "copilot_deployment": true,<br/>  "copilot_initialization": true<br/>}</pre> | no |
+| <a name="input_network_name"></a> [network\_name](#input\_network\_name) | The name of the network (VPC) where Aviatrix Controller and CoPilot will be deployed | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The region where Aviatrix Controller and CoPilot will be deployed | `string` | n/a | yes |
+| <a name="input_service_account_email"></a> [service\_account\_email](#input\_service\_account\_email) | The name of the Service Account associated with the project where Aviatrix Controller and CoPilot will be deployed | `string` | n/a | yes |
+| <a name="input_subnet_name"></a> [subnet\_name](#input\_subnet\_name) | The name of the subnetwork where Aviatrix Controller and CoPilot will be deployed | `string` | n/a | yes |
 | <a name="input_use_existing_network"></a> [use\_existing\_network](#input\_use\_existing\_network) | n/a | `bool` | `false` | no |
+| <a name="input_zone"></a> [zone](#input\_zone) | The zone where Aviatrix Controller and CoPilot will be deployed | `string` | n/a | yes |
 
 ## Outputs
 

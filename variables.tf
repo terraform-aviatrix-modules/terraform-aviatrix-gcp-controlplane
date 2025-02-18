@@ -43,26 +43,26 @@ variable "module_config" {
 }
 
 variable "network_name" {
-  type = string
+  type        = string
   description = "The name of the network (VPC) where Aviatrix Controller and CoPilot will be deployed"
 }
 variable "subnet_name" {
-  type = string
+  type        = string
   description = "The name of the subnetwork where Aviatrix Controller and CoPilot will be deployed"
 }
 variable "region" {
-  type = string 
+  type        = string
   description = "The region where Aviatrix Controller and CoPilot will be deployed"
 }
 variable "zone" {
-  type = string
+  type        = string
   description = "The zone where Aviatrix Controller and CoPilot will be deployed"
 }
 variable "copilot_data_disk_size" {
-  type = string 
+  type        = string
   description = "The size of the CoPilot data disk"
 }
 variable "service_account_email" {
-  type = string 
+  type        = string
   description = "The name of the Service Account associated with the project where Aviatrix Controller and CoPilot will be deployed"
 }

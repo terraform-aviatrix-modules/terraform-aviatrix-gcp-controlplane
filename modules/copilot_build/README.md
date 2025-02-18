@@ -50,6 +50,7 @@ module "copilot_build" {
 | <a name="input_network"></a> [network](#input\_network) | The network to attach to the Aviatrix Copilot | `string` | `""` | no |
 | <a name="input_network_tags"></a> [network\_tags](#input\_network\_tags) | Compute instance network tags | `set(string)` | <pre>[<br/>  "copilot"<br/>]</pre> | no |
 | <a name="input_private_mode"></a> [private\_mode](#input\_private\_mode) | Flag to indicate whether the copilot is for private mode | `bool` | `false` | no |
+| <a name="input_region"></a> [region](#input\_region) | n/a | `string` | n/a | yes |
 | <a name="input_service_account_email"></a> [service\_account\_email](#input\_service\_account\_email) | The Service Account to assign to the Aviatrix Copilot | `string` | `""` | no |
 | <a name="input_service_account_scopes"></a> [service\_account\_scopes](#input\_service\_account\_scopes) | The scopes to assign to the Aviatrix Copilot's Service Account | `set(string)` | <pre>[<br/>  "cloud-platform"<br/>]</pre> | no |
 | <a name="input_ssh_public_key_file_content"></a> [ssh\_public\_key\_file\_content](#input\_ssh\_public\_key\_file\_content) | File content of the SSH public key | `string` | `""` | no |
@@ -59,6 +60,7 @@ module "copilot_build" {
 | <a name="input_subnetwork"></a> [subnetwork](#input\_subnetwork) | The subnetwork to attach the Aviatrix Copilot | `string` | `""` | no |
 | <a name="input_use_existing_network"></a> [use\_existing\_network](#input\_use\_existing\_network) | Flag to indicate whether to use an existing network | `bool` | `false` | no |
 | <a name="input_use_existing_ssh_key"></a> [use\_existing\_ssh\_key](#input\_use\_existing\_ssh\_key) | Flag to indicate whether to use an existing ssh key | `bool` | `false` | no |
+| <a name="input_zone"></a> [zone](#input\_zone) | n/a | `string` | n/a | yes |
 
 ## Outputs
 

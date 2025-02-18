@@ -9,13 +9,13 @@ resource "google_compute_subnetwork" "copilot_subnet" {
   name          = "aviatrix-copilot-subnetwork"
   network       = google_compute_network.copilot_network[0].self_link
   ip_cidr_range = var.subnet_cidr
-  region = var.region
+  region        = var.region
 }
 
 resource "google_compute_address" "ip_address" {
   name         = var.ip_address_name
   address_type = "EXTERNAL"
-  region = var.region
+  region       = var.region
 }
 
 resource "tls_private_key" "key_pair_material" {
@@ -91,7 +91,7 @@ resource "google_compute_disk" "default" {
   count = var.default_data_disk_size == 0 ? 0 : 1
   name  = var.default_data_disk_name
   size  = var.default_data_disk_size
-  zone = var.zone
+  zone  = var.zone
 }
 
 resource "google_compute_attached_disk" "default" {

@@ -26,11 +26,13 @@ module "controller_build" {
 | <a name="input_ip_address_name"></a> [ip\_address\_name](#input\_ip\_address\_name) | Name of the compute address to be created | `string` | `"aviatrix-controller-address"` | no |
 | <a name="input_network_name"></a> [network\_name](#input\_network\_name) | Name of the network to be created or an existing network | `string` | `"aviatrix-controller-network"` | no |
 | <a name="input_network_tags"></a> [network\_tags](#input\_network\_tags) | Compute instance network tags | `set(string)` | <pre>[<br/>  "controller"<br/>]</pre> | no |
+| <a name="input_region"></a> [region](#input\_region) | n/a | `string` | n/a | yes |
 | <a name="input_service_account_email"></a> [service\_account\_email](#input\_service\_account\_email) | The Service Account to assign to the Aviatrix Controller | `string` | `""` | no |
 | <a name="input_service_account_scopes"></a> [service\_account\_scopes](#input\_service\_account\_scopes) | The scopes to assign to the Aviatrix Controller's Service Account | `list(string)` | <pre>[<br/>  "cloud-platform"<br/>]</pre> | no |
 | <a name="input_subnet_cidr"></a> [subnet\_cidr](#input\_subnet\_cidr) | The CIDR for the subnetwork this module will create | `string` | `"10.128.0.0/9"` | no |
 | <a name="input_subnet_name"></a> [subnet\_name](#input\_subnet\_name) | Name of the subnetwork to be created or an existing subnetwork | `string` | `"aviatrix-controller-subnetwork"` | no |
 | <a name="input_use_existing_network"></a> [use\_existing\_network](#input\_use\_existing\_network) | Whether to use an existing network | `bool` | `false` | no |
+| <a name="input_zone"></a> [zone](#input\_zone) | n/a | `string` | n/a | yes |
 
 ## Outputs
 

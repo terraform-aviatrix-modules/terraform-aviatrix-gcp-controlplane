@@ -9,27 +9,32 @@ resource "google_compute_subnetwork" "controller_subnet" {
   name          = var.subnet_name
   network       = google_compute_network.controller_network[0].self_link
   ip_cidr_range = var.subnet_cidr
+  region        = var.region
 }
 
 resource "google_compute_address" "ip_address" {
   name         = var.ip_address_name
   address_type = "EXTERNAL"
+  region       = var.region
 }
 
 
 data "google_compute_network" "controller_network" {
   count = var.use_existing_network ? 1 : 0
   name  = var.network_name
+
 }
 
 data "google_compute_subnetwork" "controller_subnet" {
-  count = var.use_existing_network ? 1 : 0
-  name  = var.subnet_name
+  count  = var.use_existing_network ? 1 : 0
+  name   = var.subnet_name
+  region = var.region
 }
 
 resource "google_compute_instance" "controller" {
   name         = var.controller_name
   machine_type = var.controller_machine_type
+  zone         = var.zone
   tags         = var.network_tags
 
   boot_disk {

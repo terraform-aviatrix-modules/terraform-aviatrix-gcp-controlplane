@@ -22,6 +22,12 @@ module "copilot_build" {
       ports    = ["443"]
       cidrs    = ["1.2.3.4/32"]
     }
+    "tcp_controller_ports" = {
+      priority = "150"
+      protocol = "Tcp"
+      ports    = ["50441-50443"]
+      cidrs    = ["123.2.3.4/32", "10.2.3.4/32"]
+    }
     "udp_cidrs" = {
       priority = "200"
       protocol = "Udp"
@@ -34,16 +40,16 @@ module "copilot_build" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_additional_disks"></a> [additional\_disks](#input\_additional\_disks) | A set of additional disks' `name` or `self_link` that will be attached to the copilot instance | `set(string)` | `[]` | no |
-| <a name="input_allowed_cidrs"></a> [allowed\_cidrs](#input\_allowed\_cidrs) | n/a | <pre>map(object({<br/>    protocol = string,<br/>    port     = number<br/>    cidrs    = set(string),<br/>  }))</pre> | n/a | yes |
+| <a name="input_allowed_cidrs"></a> [allowed\_cidrs](#input\_allowed\_cidrs) | n/a | <pre>map(object({<br/>    protocol = string,<br/>    ports    = set(string)<br/>    cidrs    = set(string),<br/>  }))</pre> | n/a | yes |
 | <a name="input_boot_disk_size"></a> [boot\_disk\_size](#input\_boot\_disk\_size) | Boot disk size for copilot | `number` | `30` | no |
 | <a name="input_controller_private_ip"></a> [controller\_private\_ip](#input\_controller\_private\_ip) | Controller private IP | `string` | n/a | yes |
 | <a name="input_controller_public_ip"></a> [controller\_public\_ip](#input\_controller\_public\_ip) | Controller public IP | `string` | `"0.0.0.0"` | no |
-| <a name="input_copilot_machine_type"></a> [copilot\_machine\_type](#input\_copilot\_machine\_type) | The machine type to create the Aviatrix Copilot | `string` | `"e2-standard-2"` | no |
+| <a name="input_copilot_machine_type"></a> [copilot\_machine\_type](#input\_copilot\_machine\_type) | The machine type for Aviatrix CoPilot. Use e2-standard-4 or a larger supported machine type for full functionality. | `string` | `"e2-standard-4"` | no |
 | <a name="input_copilot_name"></a> [copilot\_name](#input\_copilot\_name) | The Aviatrix Copilot name | `string` | `"aviatrix-copilot"` | no |
 | <a name="input_default_data_disk_name"></a> [default\_data\_disk\_name](#input\_default\_data\_disk\_name) | Name of default data disk. If default data disk is not created, this variable will be ignored. | `string` | `"default-data-disk"` | no |
-| <a name="input_default_data_disk_size"></a> [default\_data\_disk\_size](#input\_default\_data\_disk\_size) | Size of default data disk. If not set, no default data disk will be created. | `number` | `0` | no |
+| <a name="input_default_data_disk_size"></a> [default\_data\_disk\_size](#input\_default\_data\_disk\_size) | Size of default data disk in GB. Set to 0 to skip creation. Use 1000 for production. | `number` | `100` | no |
 | <a name="input_image"></a> [image](#input\_image) | Image name | `string` | `""` | no |
 | <a name="input_ip_address_name"></a> [ip\_address\_name](#input\_ip\_address\_name) | IP address name | `string` | `"aviatrix-copilot-address"` | no |
 | <a name="input_is_cluster"></a> [is\_cluster](#input\_is\_cluster) | Flag to indicate whether the copilot is for a cluster | `bool` | `false` | no |
@@ -65,9 +71,10 @@ module "copilot_build" {
 ## Outputs
 
 | Name | Description |
-|------|-------------|
-| <a name="output_instance_id"></a> [instance\_id](#output\_instance\_id) | n/a |
-| <a name="output_network"></a> [network](#output\_network) | n/a |
-| <a name="output_private_ip"></a> [private\_ip](#output\_private\_ip) | n/a |
-| <a name="output_public_ip"></a> [public\_ip](#output\_public\_ip) | n/a |
+| ---- | ----------- |
+| <a name="output_copilot_name"></a> [copilot\_name](#output\_copilot\_name) | Name of the copilot instance |
+| <a name="output_instance_id"></a> [instance\_id](#output\_instance\_id) | Instance ID of the copilot |
+| <a name="output_network"></a> [network](#output\_network) | Self link of the copilot network |
+| <a name="output_private_ip"></a> [private\_ip](#output\_private\_ip) | Private IP address of the copilot |
+| <a name="output_public_ip"></a> [public\_ip](#output\_public\_ip) | Public IP address of the copilot |
 <!-- END_TF_DOCS -->

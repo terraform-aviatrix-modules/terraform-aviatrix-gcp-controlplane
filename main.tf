@@ -2,18 +2,21 @@ module "controller_build" {
   count  = var.module_config.controller_deployment ? 1 : 0
   source = "./modules/controller_build"
 
-  // please do not use special characters such as `\/"[]:|<>+=;,?*@&~!#$%^()_{}'` in the controller_name
-  controller_name       = var.controller_name
-  incoming_ssl_cidrs    = local.controller_allowed_cidrs
-  use_existing_network  = var.use_existing_network
-  access_account_name   = "GCP"
-  network_name          = var.network_name
-  subnet_name           = var.subnet_name
-  region                = var.region
-  zone                  = var.zone
-  service_account_email = var.service_account_email
+  controller_name         = var.controller_name
+  controller_version      = var.controller_version
+  controller_machine_type = var.controller_machine_type
+  image                   = var.image
+  incoming_ssl_cidrs      = local.controller_allowed_cidrs
+  use_existing_network    = var.use_existing_network
+  network_name            = var.network_name
+  subnet_name             = var.subnet_name
+  subnet_cidr             = var.subnet_cidr
+  region                  = var.region
+  zone                    = var.zone
+  service_account_email   = var.service_account_email
+  labels                  = var.labels
+  name_prefix             = var.name_prefix
 }
-
 
 module "controller_init" {
   count = var.module_config.controller_initialization ? 1 : 0
@@ -26,13 +29,15 @@ module "controller_init" {
   controller_admin_email    = var.controller_admin_email
   controller_admin_password = var.controller_admin_password
   customer_id               = var.customer_id
+  controller_version        = var.controller_version
+  wait_for_setup_duration   = "0s"
 
   depends_on = [
     module.controller_build
   ]
 }
 
-#Copilot
+# Copilot
 module "copilot_build" {
   count = var.module_config.copilot_deployment ? 1 : 0
 
@@ -48,22 +53,29 @@ module "copilot_build" {
   zone                   = var.zone
   default_data_disk_size = var.copilot_data_disk_size
 
-
   allowed_cidrs = {
     "tcp-443" = {
       protocol = "Tcp"
-      port     = 443
+      ports    = ["443"]
       cidrs    = var.incoming_ssl_cidrs
     }
     "udp-5000" = {
       protocol = "Udp"
-      port     = 5000
-      cidrs    = [module.controller_build[0].controller_public_ip_address]
+      ports    = ["5000"]
+      cidrs    = [format("%s/32", module.controller_build[0].controller_public_ip_address)]
     }
     "udp-31283" = {
       protocol = "Udp"
-      port     = 31283
-      cidrs    = [module.controller_build[0].controller_public_ip_address]
+      ports    = ["31283"]
+      cidrs    = [format("%s/32", module.controller_build[0].controller_public_ip_address)]
+    }
+    "tcp-50441-50443" = {
+      protocol = "Tcp"
+      ports    = ["50441-50443"]
+      cidrs = [
+        format("%s/32", module.controller_build[0].controller_public_ip_address),
+        format("%s/32", module.controller_build[0].controller_private_ip_address),
+      ]
     }
   }
 }
@@ -72,7 +84,7 @@ module "copilot_init" {
   count = var.module_config.copilot_initialization ? 1 : 0
 
   source  = "terraform-aviatrix-modules/copilot-init/aviatrix"
-  version = "v1.0.5"
+  version = "v1.0.6"
 
   controller_public_ip             = module.controller_build[0].controller_public_ip_address
   controller_admin_password        = var.controller_admin_password

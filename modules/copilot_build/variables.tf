@@ -25,7 +25,7 @@ variable "subnet_cidr" {
 variable "allowed_cidrs" {
   type = map(object({
     protocol = string,
-    port     = number
+    ports    = set(string)
     cidrs    = set(string),
   }))
 }
@@ -34,6 +34,7 @@ variable "copilot_name" {
   type        = string
   description = "The Aviatrix Copilot name"
   default     = "aviatrix-copilot"
+  nullable    = false
 }
 
 variable "service_account_email" {
@@ -50,8 +51,9 @@ variable "service_account_scopes" {
 
 variable "copilot_machine_type" {
   type        = string
-  description = "The machine type to create the Aviatrix Copilot"
-  default     = "e2-standard-2"
+  description = "The machine type for Aviatrix CoPilot. Use e2-standard-4 or a larger supported machine type for full functionality."
+  default     = "e2-standard-4"
+  nullable    = false
 }
 
 variable "ssh_user" {
@@ -80,8 +82,9 @@ variable "ssh_public_key_file_content" {
 
 variable "default_data_disk_size" {
   type        = number
-  description = "Size of default data disk. If not set, no default data disk will be created."
-  default     = 0
+  description = "Size of default data disk in GB. Set to 0 to skip creation. Use 1000 for production."
+  default     = 100
+  nullable    = false
 }
 
 variable "default_data_disk_name" {

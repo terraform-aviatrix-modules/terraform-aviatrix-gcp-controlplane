@@ -83,7 +83,7 @@ resource "google_compute_firewall" "copilot_firewall" {
 
   allow {
     protocol = each.value["protocol"]
-    ports    = [each.value["port"]]
+    ports    = each.value["ports"]
   }
 }
 

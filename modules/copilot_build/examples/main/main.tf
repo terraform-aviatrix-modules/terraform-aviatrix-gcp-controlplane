@@ -14,6 +14,12 @@ module "copilot_build" {
       ports    = ["443"]
       cidrs    = ["1.2.3.4/32"]
     }
+    "tcp_controller_ports" = {
+      priority = "150"
+      protocol = "Tcp"
+      ports    = ["50441-50443"]
+      cidrs    = ["123.2.3.4/32", "10.2.3.4/32"]
+    }
     "udp_cidrs" = {
       priority = "200"
       protocol = "Udp"

@@ -11,7 +11,7 @@ provider "google" {
 
 module "control_plane" {
   source  = "terraform-aviatrix-modules/gcp-controlplane/aviatrix"
-  version = "v1.0.0"
+  version = "v1.1.0"
 
   controller_name           = "my_controller"
   incoming_ssl_cidrs        = ["1.2.3.4"]

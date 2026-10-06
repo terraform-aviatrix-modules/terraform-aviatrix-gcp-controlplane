@@ -3,5 +3,9 @@ terraform {
     google = {
       source = "hashicorp/google"
     }
+    http = {
+      source = "hashicorp/http"
+    }
   }
+  required_version = ">= 1.3"
 }

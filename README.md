@@ -7,7 +7,7 @@ This module deploys the Aviatrix control plane, or individual parts thereof.
 ### Compatibility
 Module version | Terraform version
 :--- | :---
-v1.1.0 | >= 1.3.0 |
+v1.1.1 | >= 1.3.0
 
 ### Usage Example
 ```hcl
@@ -19,7 +19,7 @@ provider "google" {
 
 module "control_plane" {
   source  = "terraform-aviatrix-modules/gcp-controlplane/aviatrix"
-  version = "v1.1.0"
+  version = "v1.1.1"
 
   # Required
   customer_id               = "xxxxxxx-abu-xxxxxxxxx"
@@ -47,6 +47,7 @@ output "controlplane_data" {
 | ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_controller_admin_email"></a> [controller\_admin\_email](#input\_controller\_admin\_email) | Aviatrix controller admin email address | `string` | n/a | yes |
 | <a name="input_controller_admin_password"></a> [controller\_admin\_password](#input\_controller\_admin\_password) | Aviatrix controller admin password | `string` | n/a | yes |
+| <a name="input_controller_boot_disk_size"></a> [controller\_boot\_disk\_size](#input\_controller\_boot\_disk\_size) | The size of the Aviatrix Controller boot disk in GB. If null, the submodule default (100) is used. | `number` | `null` | no |
 | <a name="input_controller_machine_type"></a> [controller\_machine\_type](#input\_controller\_machine\_type) | The machine type for the Aviatrix Controller. If null, the submodule default (n2-standard-4) is used. | `string` | `null` | no |
 | <a name="input_controller_name"></a> [controller\_name](#input\_controller\_name) | Customized Name for Aviatrix Controller. If null, the submodule default is used. | `string` | `null` | no |
 | <a name="input_controller_version"></a> [controller\_version](#input\_controller\_version) | Aviatrix Controller version. Determines image generation (major < 10 = g4, >= 10 = g5). Use 'latest' for the newest generation. | `string` | `"latest"` | no |

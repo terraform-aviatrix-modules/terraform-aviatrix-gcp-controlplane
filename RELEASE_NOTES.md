@@ -1,5 +1,8 @@
 # terraform-aviatrix-gcp-controlplane - release notes
 
+## v1.1.1
+- Controller boot disk now defaults to 100 GB (new `controller_boot_disk_size` variable). Applies to new deployments only; resize existing controllers manually.
+
 ## Release Version
 v1.1.0
 
@@ -13,8 +16,3 @@ v1.1.0
 ### Upgrade Information
 - Update the module version to `v1.1.0` and review the Terraform plan before applying, especially changes to instance sizing and CoPilot disk configuration.
 - Consumers of `modules/copilot_build` directly must change each `allowed_cidrs` entry from a singular `port` value to a `ports` collection. The default CoPilot data disk size is now 100 GB; set it to `0` to skip creating the disk.
-
-### Compatibility
-Module version | Terraform version
-:--- | :---
-v1.1.0 | >= 1.3.0

@@ -2,20 +2,21 @@ module "controller_build" {
   count  = var.module_config.controller_deployment ? 1 : 0
   source = "./modules/controller_build"
 
-  controller_name         = var.controller_name
-  controller_version      = var.controller_version
-  controller_machine_type = var.controller_machine_type
-  image                   = var.image
-  incoming_ssl_cidrs      = local.controller_allowed_cidrs
-  use_existing_network    = var.use_existing_network
-  network_name            = var.network_name
-  subnet_name             = var.subnet_name
-  subnet_cidr             = var.subnet_cidr
-  region                  = var.region
-  zone                    = var.zone
-  service_account_email   = var.service_account_email
-  labels                  = var.labels
-  name_prefix             = var.name_prefix
+  controller_name           = var.controller_name
+  controller_version        = var.controller_version
+  controller_machine_type   = var.controller_machine_type
+  controller_boot_disk_size = var.controller_boot_disk_size
+  image                     = var.image
+  incoming_ssl_cidrs        = local.controller_allowed_cidrs
+  use_existing_network      = var.use_existing_network
+  network_name              = var.network_name
+  subnet_name               = var.subnet_name
+  subnet_cidr               = var.subnet_cidr
+  region                    = var.region
+  zone                      = var.zone
+  service_account_email     = var.service_account_email
+  labels                    = var.labels
+  name_prefix               = var.name_prefix
 }
 
 module "controller_init" {

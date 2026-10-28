@@ -26,6 +26,12 @@ variable "controller_version" {
   default     = "latest"
 }
 
+variable "controller_boot_disk_size" {
+  type        = number
+  description = "The size of the Aviatrix Controller boot disk in GB. If null, the submodule default (100) is used."
+  default     = null
+}
+
 variable "controller_machine_type" {
   type        = string
   description = "The machine type for the Aviatrix Controller. If null, the submodule default (n2-standard-4) is used."

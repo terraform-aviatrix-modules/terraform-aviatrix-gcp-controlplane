@@ -24,6 +24,18 @@ variable "controller_machine_type" {
   nullable    = false
 }
 
+variable "controller_boot_disk_size" {
+  type        = number
+  description = "The size of the Aviatrix Controller boot disk in GB. Minimum 100. Only applied at creation."
+  default     = 100
+  nullable    = false
+
+  validation {
+    condition     = var.controller_boot_disk_size >= 100
+    error_message = "The minimum controller boot disk size is 100 GB."
+  }
+}
+
 variable "image" {
   type        = string
   description = "The image from which to initialize this disk. Overrides controller_version when set."

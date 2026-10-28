@@ -66,6 +66,7 @@ resource "google_compute_instance" "controller" {
   boot_disk {
     initialize_params {
       image = local.resolved_image
+      size  = var.controller_boot_disk_size
     }
   }
 
@@ -84,7 +85,10 @@ resource "google_compute_instance" "controller" {
   }
 
   lifecycle {
-    ignore_changes = [boot_disk[0].initialize_params[0].image]
+    ignore_changes = [
+      boot_disk[0].initialize_params[0].image,
+      boot_disk[0].initialize_params[0].size,
+    ]
   }
 }
 

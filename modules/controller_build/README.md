@@ -24,6 +24,7 @@ module "controller_build" {
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
+| <a name="input_controller_boot_disk_size"></a> [controller\_boot\_disk\_size](#input\_controller\_boot\_disk\_size) | The size of the Aviatrix Controller boot disk in GB. Minimum 100. Only applied at creation. | `number` | `100` | no |
 | <a name="input_controller_machine_type"></a> [controller\_machine\_type](#input\_controller\_machine\_type) | The machine type to create the Aviatrix Controller | `string` | `"n2-standard-4"` | no |
 | <a name="input_controller_name"></a> [controller\_name](#input\_controller\_name) | The Aviatrix Controller name | `string` | `"aviatrix-controller"` | no |
 | <a name="input_controller_version"></a> [controller\_version](#input\_controller\_version) | Aviatrix Controller version. Used to determine image generation (major < 10 = g4, >= 10 = g5). Use 'latest' for the newest generation. | `string` | `"latest"` | no |

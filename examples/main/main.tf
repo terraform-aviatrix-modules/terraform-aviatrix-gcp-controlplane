@@ -6,7 +6,7 @@ provider "google" {
 
 module "control_plane" {
   source  = "terraform-aviatrix-modules/gcp-controlplane/aviatrix"
-  version = "v1.1.0"
+  version = "v1.1.1"
 
   # Required
   customer_id               = "xxxxxxx-abu-xxxxxxxxx"
